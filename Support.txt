@@ -1,0 +1,17 @@
+1. User Support
+
+1.1. adi-pandey0542 is committed to providing user support for the CSV Import Add-On.
+
+1.2. For assistance or inquiries related to the Add-On, please reach out to our support team at the github page at https://github.com/adi-pandey0542
+
+2. Support Hours
+
+2.1. Our support team is available during [Support Hours] to address user inquiries and provide assistance.
+
+3. Bug Reports
+
+3.1. Users are encouraged to report any issues, bugs, or errors encountered while using the Add-On. Reports can be submitted to the github repository.
+
+4. Feedback
+
+4.1. User feedback is valuable to us. We appreciate suggestions, comments, and ideas for improving the Add-On. Users are welcome to share feedback through the github repository.
