@@ -1,0 +1,35 @@
+1. Information Collection and Use
+
+1.1. Stharanzn may collect and process personal information when you use the CSV Import Add-On.
+
+1.2. Information collected may include but is not limited to:
+
+User-provided data (e.g., CSV files)
+Information about the user's device or browser
+Usage data (e.g., interactions with the Add-On)
+2. Use of Information
+
+2.1. adi-pandey0542 may use the collected information for the following purposes:
+
+To provide and maintain the Add-On's functionality.
+To monitor and analyze usage patterns.
+To improve and enhance the Add-On.
+To respond to user support requests.
+To comply with legal obligations.
+3. Data Security
+
+3.1. adi-pandey0542 takes reasonable measures to protect user data from unauthorized access, alteration, or disclosure.
+
+4. Data Sharing
+
+4.1. adi-pandey0542 does not sell, trade, or rent user information to third parties.
+
+5. Your Choices
+
+5.1. Users have the right to:
+
+Access, update, or delete their personal information.
+Opt out of certain data processing activities.
+6. Contact Us
+
+6.1. For any questions or concerns regarding the Privacy Policy, please contact us at pandey2007aditya@gmail.com
