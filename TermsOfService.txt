@@ -1,0 +1,47 @@
+1. Acceptance of Terms
+
+By using the CSV Import Add-On ("the Add-On") provided by adi-pandey0542, you agree to comply with and be bound by the following Terms of Service. If you do not agree to these terms, please do not use the Add-On.
+
+2. Use of the Add-On
+
+2.1. The Add-On is intended for use with Google Spreadsheet.
+
+2.2. You may only use the Add-On for lawful purposes and in compliance with all applicable laws and regulations.
+
+2.3. You must provide accurate and complete information when using the Add-On.
+
+3. Data Privacy
+
+3.1. By using the Add-On, you acknowledge and agree that adi-pandey0542 may collect and process personal data as described in the Privacy Policy. Please review the Privacy Policy for details.
+
+4. Ownership and Intellectual Property
+
+4.1. adi-pandey0542 retains all rights, ownership, and interest in the Add-On, including all intellectual property rights.
+
+4.2. You may not modify, distribute, reproduce, reverse engineer, or create derivative works based on the Add-On without prior written consent from adi-pandey0542.
+
+5. Disclaimer of Warranty
+
+5.1. The Add-On is provided "as is" and "as available," without warranties of any kind, either express or implied, including, but not limited to, the implied warranties of merchantability, fitness for a particular purpose, or non-infringement.
+
+5.2. adi-pandey0542 does not warrant that the Add-On will be error-free, uninterrupted, secure, or meet your specific requirements.
+
+6. Limitation of Liability
+
+6.1. In no event shall adi-pandey0542 be liable for any direct, indirect, incidental, special, or consequential damages, or any damages whatsoever, arising out of or in connection with your use of the Add-On.
+
+7. Changes to Terms of Service
+
+7.1. adi-pandey0542 reserves the right to modify or revise these Terms of Service at any time. Continued use of the Add-On after any changes shall constitute your consent to such changes.
+
+8. Termination
+
+8.1. adi-pandey0542 may terminate or suspend your access to the Add-On at its sole discretion, without notice, for any conduct that adi-pandey0542, in its sole discretion, believes violates these Terms of Service or is harmful to other users of the Add-On or third parties or for any other reason.
+
+9. Contact Information
+
+9.1. For any questions or concerns regarding these Terms of Service, please contact us at pandey2007aditya@gmail.com
+
+By using the CSV Import Add-On, you acknowledge that you have read, understood, and agreed to these Terms of Service.
+
+adi-pandey0542
