@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+
+    <!-- #region CSS -->
+
+    <!-- radio group css -->
+    <style>
+      /* pen by https://codepen.io/JamieMaguire/pen/QpZWvZ */
+      .radio-container {
+          margin-top: 50px;
+          position: relative;
+          width: 100%;
+          max-width: 350px;
+          padding: .5em 1em;
+          padding-bottom: 1em;
+          font-family: 'helvetica neue', sans-serif;
+          color: #000;
+          border-radius: 10px;
+          border: 1px solid #000;
+        }
+
+        .input-label {
+          display: block;
+          cursor: pointer;
+          line-height: 2.5;
+          margin-left: .5em;
+        }
+
+        .hidden {
+          position: absolute;
+          margin: -1px;
+          height: 1px;
+          width: 1px;
+          border: 0;
+          clip: rect(0 0 0 0);
+          overflow: hidden;
+        }
+
+        .active-icon {
+          content: '';
+          display: inline-block;
+          height: 1em;
+          width: 1em;
+          margin-right: .8em;
+          vertical-align: -0.15em;
+          border: 0.125em solid #333;
+          box-shadow: 0 0 0 0.1em #000;
+          transition: 200ms ease-out;
+        }
+
+        [type="radio"] {
+          @extend .hidden;
+        }
+
+        [type="radio"] + span {
+          display: inline-block;
+          color: #000; 
+        }
+
+        [type="radio"] + span:before {
+          @extend .active-icon;
+          border-radius: 50%;
+        }
+
+        [type="radio"]:checked + span {
+          color: #000;
+        }
+
+        [type="radio"]:checked + span:before {
+          background-color: #000;
+          box-shadow: 0 0 0 0.15em #000;
+        }
+
+        [type="radio"]:focus + span:before {
+          transform: scale(1.2);
+        }   
+    </style>
+
+    <!-- general css -->
+    <style>
+      
+        #drag-zone {
+            width: 400px;
+            height: 150px;
+            border: 2px dashed #ccc;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #dropped-files {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .file {
+            margin-bottom: 5px;
+        }
+
+        #file-input{
+            margin-bottom: 10px;
+        }
+
+        #go-to-advanced{
+            margin-top: 10px;
+            border-radius: 16px;
+        }
+
+        .column-checkbox {
+            margin-right: 10px;
+        }
+
+        .select-columns{
+            display: flex;
+            flex-wrap: wrap;
+            flex: 1;            
+        }
+
+        .check-box-label{
+          margin-right: 10px
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .selected {
+            background-color: lightgreen;
+        }
+
+        .unselected {
+            background-color: #ffffff;
+        }        
+        
+    </style>
+
+    <!-- progress bar css -->
+    <style>
+      /* pen animation by https://codepen.io/kundankumarmourya/pen/JQrKpL */
+        .Animation-progress {
+          box-shadow: none;
+          position: relative;
+          display: block;
+          width: 100%;
+          height: .25rem;
+          overflow: hidden;
+          margin-bottom: 1rem;
+          background-color: #eee;
+        }
+        .Animation-progress .progressbar {
+          background-color: #455efc;
+        }
+        .Animation-progress .progressbar:after {
+          content: "";
+          position: absolute;
+          background-color: inherit;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          will-change: left,right;
+          animation: indeterminate 2.1s cubic-bezier(.165,.84,.44,1) infinite;
+          animation-delay: 1.15s;
+        }
+        .Animation-progress .progressbar:before {
+          content: "";
+          position: absolute;
+          background-color: inherit;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          will-change: left,right;
+          animation: indeterminate 2.1s cubic-bezier(.65,.815,.735,.395) infinite;
+        }
+        @keyframes indeterminate{0%{left:-35%;right:100%}60%{left:100%;right:-90%}100%{left:100%;right:-90%}}
+    </style>
+
+    <!-- button css -->
+    <style>
+      
+      .btn {
+        box-sizing: border-box;
+        appearance: none;
+        background-color: transparent;
+        border: 2px solid #1c74ec;
+        border-radius: 0.6em;
+        color: #1c74ec;
+        cursor: pointer;
+        display: flex;
+        align-self: center;
+        font-size: 0.75rem;
+        font-weight: 200;
+        line-height: 1;
+        margin: 20px;
+        padding: 1.2em 1.8em;
+        text-decoration: none;
+        text-align: center;
+        text-transform: uppercase;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+
+        &:hover,
+        &:focus {
+          color: #fff;
+          outline: 0;
+        }
+      }
+
+      .decor {
+        border-color: #1c74ec;
+        color: #000;
+        box-shadow: 0 0 40px 40px #1c74ec inset, 0 0 0 0 #1c74ec;
+        transition: all 150ms ease-in-out;
+        
+        /* &:hover {
+          box-shadow: 0 0 10px 0 #1c74ec inset, 0 0 10px 4px #1c74ec;
+        } */
+      }
+    </style>
+
+    <!-- #endregion -->
+
+  </head>
+  <body>    
+    
+    <!-- #region dragndrop div -->
+    <div id="drag-n-drop-div">
+      <input type="file" id='file-input' accept=".csv">  
+
+      <div id="drag-zone">
+          <p>Drag and drop files here</p>
+      </div>
+    </div>
+    <!-- #endregion -->
+
+    <!-- #region advanced options -->
+
+    <div style="display: none;" id="advanced-options">
+
+      <div>
+        <h2>Select Columns:</h2>
+        <div class="select-columns" id="column-selector">            
+        </div>
+      </div>
+
+      <!-- #region radio group -->
+      <!-- pen by https://codepen.io/JamieMaguire/pen/QpZWvZ -->
+      <section class="radio-container">
+        <form action="">
+          <fieldset id="radio-group">
+            <legend>Select Action</legend>
+            <label for="append-sheet" 
+                  class="input-label">
+              <input type="radio" 
+                    value="append"
+                    name="import-option" 
+                    id="append-sheet-rb" checked/>
+              <span>Append to Existing Sheet</span>
+            </label>
+            <label for="clear-active-sheet" 
+                  class="input-label">
+              <input type="radio" 
+                    value="replace"
+                    name="import-option" 
+                    id="clear-active-sheet-rb"/>
+              <span>Replace Existing Sheet</span>
+            </label>
+            <label for="nox" 
+                  class="input-label">
+              <input type="radio" 
+                    value="create"
+                    name="import-option" 
+                    id="create-new-sheet-rb"/>
+              <span>Create New Sheet</span>
+            </label>
+          </fieldset>
+        </form>
+      </section>
+      <!-- #endregion -->      
+
+      <div id="create-new-sheet-div" style="display: none;">
+        <label for="new-sheet-label">Enter New Sheet Name: </label>
+        <input type="text" id="new-sheet-name" name="new-sheet-name-input">        
+      </div>
+
+      <!-- <label for="remove-duplicates">Remove Duplicates</label>
+      <input type="checkbox" id="remove-duplicates-cb" name="remove-filter"><br> -->
+      
+      <button id="export-button" class="btn decor">Import Selected Columns</button>            
+
+      <!-- <div id="options">
+
+      </div> -->
+    </div>
+    <!-- #endregion -->
+    
+    <!-- #region progressbar div -->
+    <!-- pen by https://codepen.io/kundankumarmourya/pen/JQrKpL -->
+    <div id="progress-bar" class="Animation-progress" style="display: none;">
+      <div class="progressbar">
+
+      </div>
+    </div>
+    <!-- #endregion -->
+
+    <!-- variables, constants and event listeners -->
+    <script>
+      
+      // variables
+      var base64Csv;
+      var csvFile;
+
+      // consts
+      const advancedOptionsDiv = document.getElementById("advanced-options");
+      const dragNDropDiv = document.getElementById("drag-n-drop-div");
+      const chooseCsv = document.getElementById('file-input');
+      const dragZone = document.getElementById('drag-zone');
+      const progressBar = document.getElementById('progress-bar');
+
+      const fileInput = document.getElementById('file-input');
+      const columnSelector = document.getElementById('column-selector');        
+      const exportButton = document.getElementById('export-button');      
+
+      const appendRadioB = document.getElementById('append-sheet-rb');
+      const replaceRadioB = document.getElementById('clear-active-sheet-rb');
+      const createNewSheetRadioB = document.getElementById('create-new-sheet-rb');
+      const getNewSheetNameDiv = document.getElementById('create-new-sheet-div');
+
+      let columnNames = [];
+
+      // Event Listeners
+
+      // choose button logic
+      chooseCsv.addEventListener('change', function (e){
+        const selectedFile = e.target.files[0];
+        if(selectedFile){
+          onCsvDataDropped(selectedFile);
+        }
+      })
+     
+      // Prevent the default behavior for the drag events
+      dragZone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+      });
+
+      dragZone.addEventListener('dragenter', (e) => {
+          e.preventDefault();
+      });
+
+      // Handle the drop event
+      dragZone.addEventListener('drop', (e) => {
+          e.preventDefault();
+
+          // Get the dropped files from the event
+          const file = e.dataTransfer.files[0];
+          
+          if(file && file.type === 'text/csv'){
+            onCsvDataDropped(file);                                              
+           
+          }if(file && file.type !== 'text/csv'){
+            alert("Please upload a CSV file.")
+          }
+
+      });
+
+      // radio group event
+      appendRadioB.addEventListener('change', ()=>{
+        getNewSheetNameDiv.style.display = "none";
+      })
+
+      replaceRadioB.addEventListener('change', ()=>{
+        getNewSheetNameDiv.style.display = "none";
+      })
+
+      createNewSheetRadioB.addEventListener('change', ()=>{        
+        console.log(createNewSheetRadioB.checked);
+        getNewSheetNameDiv.style.display = "none";
+
+        if(createNewSheetRadioB.checked){
+          getNewSheetNameDiv.style.display = "block";
+        }                    
+        
+      })
+
+      // import csv data to sheet event
+      exportButton.addEventListener('click', function () {
+          const selectedColumns = Array.from(columnSelector.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
+
+          const radioButtons = document.getElementsByName('import-option');
+          let action = "";
+          let newSheetName = "New Sheet";
+
+          for (const radioButton of radioButtons) {
+              if (radioButton.checked) {
+                  action = radioButton.value;
+                  break; // Exit the loop once a checked button is found
+              }
+          }
+
+          if (action === "") {
+              action = "append"
+          }else if(action === "create"){
+            const newSheetInput = document.getElementById('new-sheet-name');
+            newSheetName = newSheetInput.value;
+          }
+          
+          const reader = new FileReader();
+
+          reader.onload = function (event){
+            const base64Data = btoa(event.target.result);              
+
+            dragNDropDiv.style.display = "none";
+            advancedOptionsDiv.style.display = "none";
+            progressBar.style.display = 'block';
+
+            const options = {"action": action, "newSheet": newSheetName}//, "removeDupes": removeDupsCB.checked}
+            
+            google.script.run.decodeCSVData(base64Data, selectedColumns, options);
+          }
+
+          reader.readAsBinaryString(csvFile);
+          
+      });
+
+    </script> 
+    <!-- functions -->
+    <script>        
+
+      // handle file dropped to drop zone
+      function onCsvDataDropped(_file){                            
+        if (_file) {
+          const reader = new FileReader();
+
+          dragNDropDiv.style.display = "none";
+          advancedOptionsDiv.style.display = "block";
+
+          reader.onload = function (event) {
+              const csvData = event.target.result;
+              const rows = csvData.split('\n');
+              if (rows.length > 0) {
+                  columnNames = rows[0].split(',').map(column => column.trim());
+                  displayColumnSelector(columnNames);
+              }
+          };
+          
+          csvFile = _file;
+          reader.readAsText(_file);
+        }
+      }
+      
+      // display columns
+      function displayColumnSelector(columns) {
+          columnSelector.innerHTML = '';
+          
+          columns.forEach(column => {
+              const checkbox = document.createElement('input');
+              checkbox.type = 'checkbox';
+              checkbox.id = column;
+              checkbox.value = column;
+              checkbox.checked = true;
+              checkbox.classList.add('selected');
+              
+              checkbox.addEventListener('change', function (event) {
+                  toggleColumnSelection(event.target);
+              });
+
+              const label = document.createElement('label');
+              label.classList.add("check-box-label")
+              label.htmlFor = column;
+              label.textContent = column;
+
+              columnSelector.appendChild(checkbox);
+              columnSelector.appendChild(label);
+              columnSelector.appendChild(document.createElement('br'));
+          });
+      }
+
+      // handle toggle column selection checkboxes
+      function toggleColumnSelection(checkbox) {
+          if (checkbox.checked) {
+              checkbox.classList.add('selected');
+              checkbox.classList.remove('unselected');
+          } else {
+              checkbox.classList.remove('selected');
+              checkbox.classList.add('unselected');
+          }
+      }
+              
+    </script>
+
+  </body>
+</html>
